@@ -1,11 +1,7 @@
-import './App.css';
+import { FC } from "react";
 
-function App() {
-  return (
-    <div className="App">
-    
-    </div>
-  );
-}
+export const App: FC = () => {
+  return <div className="font-poppins font-normal text-3xl">App</div>;
+};
 
 export default App;
