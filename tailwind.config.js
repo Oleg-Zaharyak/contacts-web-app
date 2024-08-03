@@ -7,8 +7,11 @@ module.exports = {
         poppins: ["Poppins", "sans-serif"],
       },
       colors: {
-        "light-gray": "rgba(170, 170, 170, 1)",
-        "regular-gray": "rgba(70, 70, 70,1)",
+        "wood-charcoal": "rgba(70, 70, 70,1)",
+        "quick-silver": "rgba(166, 166, 166, 1)",
+        "ultimate-grey": "rgba(170, 170, 170, 1)",
+        "nimbus-cloud": "rgba(200, 200, 200,1)",
+        "super-silver": "rgba(237,237,237,1)",
       },
     },
   },

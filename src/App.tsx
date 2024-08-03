@@ -4,7 +4,7 @@ import HomePage from "./pages/homePage";
 
 export const App: FC = () => {
   return (
-    <div className="font-poppins text-base">
+    <div className="font-poppins font-normal text-base">
       <Routes>
         <Route path="/" element={<HomePage />} />
       </Routes>

@@ -31,7 +31,7 @@ const CustomInput: FC<InputsProps> = ({
       <input
         type={type}
         id={name}
-        className="text-sm text-regular-gray px-3.5 py-[13px] rounded-lg outline-none border border-light-gray transition duration-200 ease-in-out hover:border-regular-gray focus:border-regular-gray placeholder:text-light-gray"
+        className="text-sm text-wood-charcoal px-3.5 py-[13px] rounded-lg outline-none border border-ultimate-grey transition duration-200 ease-in-out hover:border-wood-charcoal focus:border-wood-charcoal placeholder:text-ultimate-grey"
         value={value}
         placeholder={placeholder}
         onChange={onChange}

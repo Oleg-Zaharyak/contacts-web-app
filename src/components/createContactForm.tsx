@@ -22,7 +22,7 @@ const CustomContactForm: FC<FormProps> = ({ title }) => {
 
   return (
     <div className="sticky top-9 w-72 h-max">
-      <div className="text-xl">{title}</div>
+      <div className="text-xl font-medium">{title}</div>
       <Formik
         initialValues={{ firstName: "", lastName: "", email: "" }}
         validationSchema={validationSchema}
