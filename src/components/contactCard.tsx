@@ -1,4 +1,4 @@
-import { FC } from "react";
+import { FC, MouseEvent } from "react";
 import { PiUserCircleLight } from "react-icons/pi";
 import { IoIosCloseCircleOutline } from "react-icons/io";
 
@@ -8,6 +8,7 @@ type ContactCardProps = {
   email: string;
   tags?: string[];
   avatarUrl?: string;
+  onClick?(event?: MouseEvent<HTMLElement>): void;
 };
 
 export const ContactCard: FC<ContactCardProps> = ({
@@ -16,10 +17,11 @@ export const ContactCard: FC<ContactCardProps> = ({
   firstName,
   lastName,
   email,
+  onClick,
 }) => {
   return (
     <li
-      onClick={() => {}}
+      onClick={onClick}
       className="cursor-pointer w-full relative pt-4 pl-4 pr-11 pb-6 bg-super-silver grid grid-cols-[max-content_1fr] grid-row-[max-content_1fr] gap-x-3 transition duration-200 ease-in-out hover:bg-nimbus-cloud"
     >
       {avatarUrl ? (

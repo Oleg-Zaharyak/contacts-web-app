@@ -22,26 +22,28 @@ const CustomInput: FC<InputsProps> = ({
   error,
 }) => {
   return (
-    <div className="flex flex-col gap-y-1.5 relative w-full mt-2.5 ">
+    <div className="flex flex-col w-full">
       {title && (
-        <label htmlFor={name} className="text-xs pl-1.5">
+        <label htmlFor={name} className="text-xs pl-1.5 mb-1.5">
           {title}
         </label>
       )}
-      <input
-        type={type}
-        id={name}
-        className="text-sm text-wood-charcoal px-3.5 py-[13px] rounded-lg outline-none border border-ultimate-grey transition duration-200 ease-in-out hover:border-wood-charcoal focus:border-wood-charcoal placeholder:text-ultimate-grey"
-        value={value}
-        placeholder={placeholder}
-        onChange={onChange}
-        onBlur={onBlur}
-      />
-      {error && (
-        <div className="absolute top-0 right-0 text-xs text-rose-500 pr-1.5">
-          {error}
-        </div>
-      )}
+      <div className="relative w-full">
+        <input
+          type={type}
+          id={name}
+          className="w-full text-sm text-wood-charcoal px-3.5 py-[13px] rounded-lg outline-none border border-ultimate-grey transition duration-200 ease-in-out hover:border-wood-charcoal focus:border-wood-charcoal placeholder:text-ultimate-grey"
+          value={value}
+          placeholder={placeholder}
+          onChange={onChange}
+          onBlur={onBlur}
+        />
+        {error && (
+          <div className="absolute top-[-22px] right-0 text-xs text-rose-500 pr-1.5">
+            {error}
+          </div>
+        )}
+      </div>
     </div>
   );
 };

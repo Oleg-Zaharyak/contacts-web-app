@@ -42,7 +42,7 @@ const CustomContactForm: FC<FormProps> = ({ title }) => {
           const disabledButton = !(isValid && !!email && !!firstName);
 
           return (
-            <form className="flex flex-col" onSubmit={() => {}}>
+            <form className="flex flex-col gap-y-1.5" onSubmit={() => {}}>
               <CustomInput
                 title="First Name"
                 name="firstName"
@@ -70,6 +70,7 @@ const CustomContactForm: FC<FormProps> = ({ title }) => {
                 error={emailErrorMessage}
               />
               <CustomButton
+                className="mt-3.5"
                 type="submit"
                 title="Add Contact"
                 disabled={disabledButton}
