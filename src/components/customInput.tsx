@@ -5,6 +5,7 @@ type InputsProps = {
   value?: string;
   title?: string;
   type: string;
+  disabled?: boolean;
   placeholder?: string;
   onChange?(event?: ChangeEvent<HTMLInputElement>): void;
   onBlur?(event?: FocusEvent<HTMLDivElement>): void;
@@ -16,6 +17,7 @@ const CustomInput: FC<InputsProps> = ({
   name,
   type,
   value,
+  disabled,
   onChange,
   onBlur,
   placeholder,
@@ -30,9 +32,10 @@ const CustomInput: FC<InputsProps> = ({
       )}
       <div className="relative w-full">
         <input
+          disabled={disabled}
           type={type}
           id={name}
-          className="w-full text-sm text-wood-charcoal px-3.5 py-[13px] rounded-lg outline-none border border-ultimate-grey transition duration-200 ease-in-out hover:border-wood-charcoal focus:border-wood-charcoal placeholder:text-ultimate-grey"
+          className="w-full text-sm text-wood-charcoal px-3.5 py-[13px] rounded-lg outline-none border border-ultimate-grey transition duration-200 ease-in-out enabled:hover:border-wood-charcoal enabled:focus:border-wood-charcoal placeholder:text-ultimate-grey disabled:opacity-50"
           value={value}
           placeholder={placeholder}
           onChange={onChange}

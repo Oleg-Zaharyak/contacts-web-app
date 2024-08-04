@@ -8,7 +8,7 @@ export const App: FC = () => {
     <div className="font-poppins font-normal text-base">
       <Routes>
         <Route path="/" element={<HomePage />} />
-        <Route path="/contacts" element={<ContactInfoPage />} />
+        <Route path="/contacts/:id" element={<ContactInfoPage />} />
       </Routes>
     </div>
   );

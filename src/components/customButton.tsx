@@ -13,12 +13,14 @@ const CustomButton: FC<InputsProps> = ({
   title,
   disabled,
   className,
+  onClick,
 }) => {
   return (
     <button
       className={`${className} w-full font-medium cursor-pointer py-[10px] transition duration-200 ease-in-out border border-ultimate-grey enabled:hover:bg-nimbus-cloud disabled:opacity-50`}
       type={type}
       disabled={disabled}
+      onClick={onClick}
     >
       {title}
     </button>

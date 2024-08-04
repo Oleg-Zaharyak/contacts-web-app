@@ -35,6 +35,7 @@ const CustomContactForm: FC<FormProps> = ({ title }) => {
           isValid,
           handleChange,
           handleBlur,
+          handleSubmit
         }) => {
           const firstNameErrorMessage =
             (touched.firstName && errors.firstName) || "";
@@ -42,7 +43,7 @@ const CustomContactForm: FC<FormProps> = ({ title }) => {
           const disabledButton = !(isValid && !!email && !!firstName);
 
           return (
-            <form className="flex flex-col gap-y-1.5" onSubmit={() => {}}>
+            <form className="flex flex-col gap-y-1.5" onSubmit={handleSubmit}>
               <CustomInput
                 title="First Name"
                 name="firstName"

@@ -1,26 +1,24 @@
 import { FC } from "react";
+
+import { useLocation } from "react-router-dom";
+import { useGetSelectedContactQuery } from "../store/requestApi/contactsApi";
 import ContactInfo from "../components/contactInfo";
 
 const ContactInfoPage: FC = () => {
-  const data = {
-    avatar_url: "#",
-    fields: {
-      "first name": [{ value: "dsad" }],
-      "last name": [{ value: "dasd" }],
-      email: [{ value: "dsad@dasd.com" }],
-    },
-    tags2: ["dsada"],
-    tags: [
-      {
-        id: "dsad",
-        tag: "dsad",
-      },
-    ],
-  };
+  const location = useLocation();
+  const { data, isFetching, isSuccess, isError } = useGetSelectedContactQuery(
+    `${location.state.id}`
+  );
 
   return (
     <div className="w-screen flex justify-center pt-9 px-8">
-      <ContactInfo data={data} />
+      {isFetching ? (
+        <div>Loading ...</div>
+      ) : isSuccess ? (
+        <ContactInfo data={data} />
+      ) : isError ? (
+        <div>Something went wrong ...</div>
+      ) : null}
     </div>
   );
 };

@@ -1,34 +1,31 @@
-import React, { FC } from "react";
+import { FC } from "react";
 import { IoIosCloseCircleOutline } from "react-icons/io";
 import CustomButton from "./customButton";
 import CustomInput from "./customInput";
 import { Formik } from "formik";
 import * as Yup from "yup";
 import { PiUserCircleLight } from "react-icons/pi";
-import { useNavigate } from "react-router-dom";
+import { useAddNewContactTagsMutation } from "../store/requestApi/contactsApi";
+import { useLocation, useNavigate } from "react-router-dom";
+import { Contact } from "../models/models";
 
 type ContactInfoProps = {
-  data: {
-    avatar_url: string;
-    fields: {
-      "first name": { value: string }[];
-      "last name": { value: string }[];
-      email: { value: string }[];
-    };
-    tags2: string[];
-    tags: {
-      id: string;
-      tag: string;
-    }[];
-  };
+  data: Contact;
 };
 
 const ContactInfo: FC<ContactInfoProps> = ({ data }) => {
   const navigate = useNavigate();
+  const location = useLocation();
+
+  const email = data.fields.email[0].value;
+  const firstName = data.fields["first name"][0].value;
+  const lastName = data.fields["last name"][0].value;
 
   const validationSchema = Yup.object().shape({
-    tagText: Yup.string().min(2, "Too Short!").max(30, "Too Long!"),
+    tagText: Yup.string().min(2, "Too Short!").max(40, "Too Long!"),
   });
+
+  const [triggre] = useAddNewContactTagsMutation();
 
   return (
     <div className="w-[430px] flex flex-col gap-y-6 relative">
@@ -43,8 +40,8 @@ const ContactInfo: FC<ContactInfoProps> = ({ data }) => {
           <PiUserCircleLight className="text-[70px]" />
         )}
         <div className="flex flex-col justify-center font-medium">
-          <div>{`${data.fields["first name"][0].value} ${data.fields["last name"][0].value}`}</div>
-          <div>{data.fields.email[0].value}</div>
+          <div>{`${firstName} ${lastName}`}</div>
+          <div>{email}</div>
         </div>
       </div>
 
@@ -68,7 +65,14 @@ const ContactInfo: FC<ContactInfoProps> = ({ data }) => {
       <Formik
         initialValues={{ tagText: "" }}
         validationSchema={validationSchema}
-        onSubmit={() => {}}
+        onSubmit={(values) =>
+          triggre({
+            id: location.state.id,
+            tags: [...data.tags2].concat(
+              values.tagText.replace(/ *, */, ",").split(",")
+            ),
+          })
+        }
       >
         {({
           values: { tagText },
