@@ -8,9 +8,6 @@ permissions:
   contents: write
 jobs:
   build-and-deploy:
-    environment:
-      name: github-pages
-      url: ${{steps.deployment.outpust.page_url}}
     concurrency: ci-${{ github.ref }} # Recommended if you intend to make multiple deployments in quick succession.
     runs-on: ubuntu-latest
     steps:
@@ -23,7 +20,6 @@ jobs:
           npm run build
 
       - name: Deploy 🚀
-        id: deployment
         uses: JamesIves/github-pages-deploy-action@v4
         with:
           folder: build # The folder the action should deploy.
