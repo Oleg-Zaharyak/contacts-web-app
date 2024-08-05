@@ -1,5 +1,10 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
-import { Contact, ContactsList, DeleteContact } from "../../models/models";
+import {
+  Contact,
+  ContactsList,
+  DeleteContact,
+  Fields,
+} from "../../models/models";
 
 const YOUR_API_KEY = "VlP9cwH6cc7Kg2LsNPXpAvF6QNmgZn";
 
@@ -8,15 +13,17 @@ export const contactsApi = createApi({
   baseQuery: fetchBaseQuery({
     baseUrl:
       "https://cors-anywhere.herokuapp.com/https://live.devnimble.com/api/v1",
+    prepareHeaders: (headers) => {
+      headers.set("Authorization", `Bearer ${YOUR_API_KEY}`);
+      return headers;
+    },
   }),
+
   tagTypes: ["Contacts", "ContactInfo"],
   endpoints: (build) => ({
     getAllContacts: build.query<Contact[], void>({
       query: () => ({
         url: "/contacts",
-        headers: {
-          Authorization: `Bearer ${YOUR_API_KEY}`,
-        },
         params: {
           sort: "created:desc",
         },
@@ -28,29 +35,35 @@ export const contactsApi = createApi({
     getSelectedContact: build.query<Contact, string>({
       query: (contactId) => ({
         url: `/contact/${contactId}`,
-        headers: {
-          Authorization: `Bearer ${YOUR_API_KEY}`,
-        },
       }),
       providesTags: ["ContactInfo"],
       transformResponse: (responce: ContactsList) => responce.resources[0],
     }),
 
-    createNewContact: build.mutation<Contact, Contact>({
-      query(contactData) {
+    createNewContact: build.mutation<Contact, Fields>({
+      query(fields) {
+        const body = {
+          fields,
+          owner_id: null,
+          privacy: {
+            edit: null,
+            read: null,
+          },
+          record_type: "person",
+        };
         return {
           url: `/contact`,
           method: "POST",
-          body: contactData,
+          body,
           headers: {
-            Authorization: `Bearer ${YOUR_API_KEY}`,
             "Content-type": "application/json",
           },
         };
       },
+      invalidatesTags: ["Contacts"],
     }),
 
-    addNewContactTags: build.mutation<Contact, any>({
+    addNewContactTags: build.mutation<Contact, { id: string; tags: string[] }>({
       query(contactProps) {
         console.log(contactProps);
         return {
@@ -58,7 +71,6 @@ export const contactsApi = createApi({
           method: "PUT",
           body: { tags: contactProps.tags },
           headers: {
-            Authorization: `Bearer ${YOUR_API_KEY}`,
             "Content-type": "application/json",
           },
         };
@@ -69,9 +81,6 @@ export const contactsApi = createApi({
     deleteSelectedContact: build.mutation<DeleteContact, string>({
       query: (contactId) => ({
         url: `contact/${contactId}`,
-        headers: {
-          Authorization: `Bearer ${YOUR_API_KEY}`,
-        },
         method: "DELETE",
       }),
       invalidatesTags: ["Contacts"],
@@ -84,4 +93,5 @@ export const {
   useGetSelectedContactQuery,
   useDeleteSelectedContactMutation,
   useAddNewContactTagsMutation,
+  useCreateNewContactMutation,
 } = contactsApi;

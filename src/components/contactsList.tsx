@@ -1,13 +1,13 @@
 import { FC } from "react";
-import { ContactCard } from "./contactCard";
 import { useGetAllContactsQuery } from "../store/requestApi/contactsApi";
+import ContactCard from "./contactCard";
 import ContactCardSkeleton from "./contactCardSkeleton";
-import { TbFaceIdError } from "react-icons/tb";
+import ErrorComponent from "./errorComponent";
 
 export const ContactsList: FC = () => {
   const { data, isFetching, isSuccess, isError } = useGetAllContactsQuery();
   return (
-    <div className="w-[560px] flex flex-col pb-9 gap-y-[30px]">
+    <div className="w-[560px] flex flex-col pb-9 gap-y-[30px] max-md:w-full ">
       <div className="text-xl font-medium">Contacts</div>
       {isFetching ? (
         <ContactCardSkeleton number={6} />
@@ -18,10 +18,7 @@ export const ContactsList: FC = () => {
           ))}
         </ul>
       ) : isError ? (
-        <div className="w-full h-[250px] flex items-center justify-center flex-col gap-y-4 py-5 text-rose-500">
-          <TbFaceIdError className="text-5xl" />
-          <div className="text-lg font-medium"> Something went wrong ...</div>
-        </div>
+        <ErrorComponent />
       ) : null}
     </div>
   );

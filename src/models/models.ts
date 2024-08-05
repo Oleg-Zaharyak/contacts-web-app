@@ -43,11 +43,11 @@ export interface Contact {
 }
 
 export interface Fields {
-  "discovered gender": DiscoveredGender[];
+  "discovered gender"?: DiscoveredGender[];
   email: Email[];
   "first name": FirstName[];
   "last name": LastName[];
-  "discovered related address": Address[];
+  "discovered related address"?: Address[];
 }
 
 export interface DiscoveredGender {
@@ -59,23 +59,23 @@ export interface DiscoveredGender {
 
 export interface Email {
   label: string;
-  modifier: string;
+  modifier?: string;
   value: string;
-  is_primary: boolean;
+  is_primary?: boolean;
 }
 
 export interface FirstName {
   label: string;
-  modifier: string;
+  modifier?: string;
   value: string;
-  is_primary: boolean;
+  is_primary?: boolean;
 }
 
 export interface LastName {
   label: string;
-  modifier: string;
+  modifier?: string;
   value: string;
-  is_primary: boolean;
+  is_primary?: boolean;
 }
 
 export interface Address {

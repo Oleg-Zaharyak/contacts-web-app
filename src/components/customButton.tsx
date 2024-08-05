@@ -17,7 +17,7 @@ const CustomButton: FC<InputsProps> = ({
 }) => {
   return (
     <button
-      className={`${className} w-full font-medium cursor-pointer py-[10px] transition duration-200 ease-in-out border border-ultimate-grey enabled:hover:bg-nimbus-cloud disabled:opacity-50`}
+      className={`w-full font-medium cursor-pointer py-[10px] transition duration-200 ease-in-out border border-ultimate-grey enabled:hover:bg-nimbus-cloud disabled:opacity-50 ${className}`}
       type={type}
       disabled={disabled}
       onClick={onClick}

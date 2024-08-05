@@ -1,22 +1,23 @@
-import { FC } from "react";
+import { FC, MouseEvent } from "react";
+import { Contact } from "../models/models";
 import { PiUserCircleLight } from "react-icons/pi";
 import { IoIosCloseCircleOutline } from "react-icons/io";
 import { useNavigate } from "react-router-dom";
 import { useDeleteSelectedContactMutation } from "../store/requestApi/contactsApi";
-import { Contact } from "../models/models";
 
 type ContactCardProps = {
   data: Contact;
 };
 
-export const ContactCard: FC<ContactCardProps> = ({ data }) => {
+const ContactCard: FC<ContactCardProps> = ({ data }) => {
   const navigate = useNavigate();
   const [deleteContact] = useDeleteSelectedContactMutation();
-  const email = data.fields.email[0].value;
-  const firstName = data.fields["first name"][0].value;
-  const lastName = data.fields["last name"][0].value;
 
-  const hundleDeleteClick = (event: any) => {
+  const email = data.fields?.email?.[0]?.value;
+  const firstName = data.fields?.["first name"]?.[0]?.value;
+  const lastName = data.fields?.["last name"]?.[0]?.value;
+
+  const hundleDeleteClick = (event: MouseEvent<SVGAElement>): void => {
     event.stopPropagation();
     deleteContact(data.id);
   };
@@ -31,7 +32,7 @@ export const ContactCard: FC<ContactCardProps> = ({ data }) => {
       {data.avatar_url && data.avatar_url ? (
         <img
           src={data.avatar_url}
-          className="rounded-full w-[70px]"
+          className="rounded-full w-[70px] h-[70px]"
           alt="user-avatar"
         />
       ) : (
@@ -54,9 +55,11 @@ export const ContactCard: FC<ContactCardProps> = ({ data }) => {
         </ul>
       )}
       <IoIosCloseCircleOutline
-        className="cursor-pointer absolute z-20 top-[10px] right-5 text-2xl transition duration-200 ease-in-out hover:scale-125 "
+        className="cursor-pointer absolute z-20 top-[10px] right-5 text-2xl transition duration-200 ease-in-out hover:scale-125  active:scale-50"
         onClick={hundleDeleteClick}
       />
     </li>
   );
 };
+
+export default ContactCard;

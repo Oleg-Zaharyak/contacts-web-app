@@ -1,5 +1,5 @@
 import { FC } from "react";
-import { IoIosCloseCircleOutline } from "react-icons/io";
+import { IoIosArrowDropright} from "react-icons/io";
 import CustomButton from "./customButton";
 import CustomInput from "./customInput";
 import { Formik } from "formik";
@@ -17,15 +17,15 @@ const ContactInfo: FC<ContactInfoProps> = ({ data }) => {
   const navigate = useNavigate();
   const location = useLocation();
 
-  const email = data.fields.email[0].value;
-  const firstName = data.fields["first name"][0].value;
-  const lastName = data.fields["last name"][0].value;
+  const email = data.fields?.email?.[0]?.value;
+  const firstName = data.fields?.["first name"]?.[0]?.value;
+  const lastName = data.fields?.["last name"]?.[0]?.value;
 
   const validationSchema = Yup.object().shape({
     tagText: Yup.string().min(2, "Too Short!").max(40, "Too Long!"),
   });
 
-  const [triggre] = useAddNewContactTagsMutation();
+  const [addNewTags] = useAddNewContactTagsMutation();
 
   return (
     <div className="w-[430px] flex flex-col gap-y-6 relative">
@@ -33,7 +33,7 @@ const ContactInfo: FC<ContactInfoProps> = ({ data }) => {
         {data.avatar_url && data.avatar_url ? (
           <img
             src={data.avatar_url}
-            className="rounded-full w-[70px]"
+            className="rounded-full w-[70px] h-[70px]"
             alt="user-avatar"
           />
         ) : (
@@ -49,16 +49,14 @@ const ContactInfo: FC<ContactInfoProps> = ({ data }) => {
         <div className="flex flex-col gap-y-3 mb-4">
           <h1 className="font-medium">Tags</h1>
           <ul className="col-start-2 flex flex-wrap gap-2">
-            {data.tags.map(
-              (tagInfo: { id: string; tag: string }, index: number) => (
-                <li
-                  key={`${tagInfo.id} `}
-                  className="px-3 text-[13px] font-medium rounded-[4px] bg-quick-silver"
-                >
-                  {tagInfo.tag}
-                </li>
-              )
-            )}
+            {data.tags.map((tagInfo: { id: string; tag: string }) => (
+              <li
+                key={`${tagInfo.id} `}
+                className="px-3 text-[13px] font-medium rounded-[4px] bg-quick-silver"
+              >
+                {tagInfo.tag}
+              </li>
+            ))}
           </ul>
         </div>
       )}
@@ -66,7 +64,7 @@ const ContactInfo: FC<ContactInfoProps> = ({ data }) => {
         initialValues={{ tagText: "" }}
         validationSchema={validationSchema}
         onSubmit={(values) =>
-          triggre({
+          addNewTags({
             id: location.state.id,
             tags: [...data.tags2].concat(
               values.tagText.replace(/ *, */, ",").split(",")
@@ -105,9 +103,9 @@ const ContactInfo: FC<ContactInfoProps> = ({ data }) => {
           );
         }}
       </Formik>
-      <IoIosCloseCircleOutline
+      <IoIosArrowDropright
         onClick={() => navigate("/")}
-        className="cursor-pointer absolute top-[10px] right-0 text-[22px]"
+        className="cursor-pointer absolute top-[10px] right-1 text-[22px]"
       />
     </div>
   );
