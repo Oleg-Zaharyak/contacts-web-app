@@ -45,8 +45,8 @@ export interface Contact {
 export interface Fields {
   "discovered gender"?: DiscoveredGender[];
   email: Email[];
-  "first name": FirstName[];
-  "last name": LastName[];
+  "first name"?: FirstName[];
+  "last name"?: LastName[];
   "discovered related address"?: Address[];
 }
 

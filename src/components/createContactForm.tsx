@@ -33,9 +33,9 @@ const CustomContactForm: FC<{ title?: string }> = ({ title }) => {
         validationSchema={validationSchema}
         onSubmit={(value, { resetForm }) => {
           const fields = {
-            "first name": [{ label: "first name", value: value.firstName }],
-            "last name": [{ label: "last name", value: value.lastName }],
             email: [{ label: "email", value: value.email }],
+            ...(value.firstName && {"first name": [{ label: "first name", value: value.firstName }]}),
+            ...(value.lastName && { "last name": [{ label: "last name", value: value.lastName }]} )          
           };
           createNewContact(fields);
           resetForm();

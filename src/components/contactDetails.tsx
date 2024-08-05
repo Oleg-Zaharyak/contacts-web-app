@@ -18,8 +18,8 @@ const ContactInfo: FC<ContactInfoProps> = ({ data }) => {
   const location = useLocation();
 
   const email = data.fields?.email?.[0]?.value;
-  const firstName = data.fields?.["first name"]?.[0]?.value;
-  const lastName = data.fields?.["last name"]?.[0]?.value;
+  const firstName = data.fields?.["first name"]?.[0]?.value || "";
+  const lastName = data.fields?.["last name"]?.[0]?.value || "";
 
   const validationSchema = Yup.object().shape({
     tagText: Yup.string().min(2, "Too Short!").max(40, "Too Long!"),

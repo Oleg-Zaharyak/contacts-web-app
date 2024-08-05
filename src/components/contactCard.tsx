@@ -14,8 +14,8 @@ const ContactCard: FC<ContactCardProps> = ({ data }) => {
   const [deleteContact] = useDeleteSelectedContactMutation();
 
   const email = data.fields?.email?.[0]?.value;
-  const firstName = data.fields?.["first name"]?.[0]?.value;
-  const lastName = data.fields?.["last name"]?.[0]?.value;
+  const firstName = data.fields?.["first name"]?.[0]?.value || "";
+  const lastName = data.fields?.["last name"]?.[0]?.value || "";
 
   const hundleDeleteClick = (event: MouseEvent<SVGAElement>): void => {
     event.stopPropagation();
