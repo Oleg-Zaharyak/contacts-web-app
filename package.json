@@ -1,6 +1,6 @@
 {
-  "homepage": "http://Oleg-Zaharyak.github.io/",
-  "name": "my-app",
+  "homepage": "http://oleg-zaharyak.github.io/",
+  "name": "contacts-web-app",
   "version": "0.1.0",
   "private": true,
   "proxy": "https://live.devnimble.com",
